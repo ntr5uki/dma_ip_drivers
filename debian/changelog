@@ -1,0 +1,6 @@
+xdma-dkms (2025.2.0-1) unstable; urgency=medium
+
+  * Package the AMD/Xilinx XDMA reference driver with DKMS.
+  * Add Debian 13 and Ubuntu 24.04 packaging support.
+
+ -- ntr5kui <tom3036@163.com>  Thu, 04 Jun 2026 17:20:00 +0800

@@ -1,0 +1,11 @@
+PACKAGE_NAME="xdma"
+PACKAGE_VERSION="#MODULE_VERSION#"
+
+MAKE[0]="env -u KERNELRELEASE make -C xdma KERNEL_VERSION=${kernelver} KERNEL_BUILD=/lib/modules/${kernelver}/build"
+CLEAN="env -u KERNELRELEASE make -C xdma KERNEL_VERSION=${kernelver} KERNEL_BUILD=/lib/modules/${kernelver}/build clean"
+
+BUILT_MODULE_NAME[0]="xdma"
+BUILT_MODULE_LOCATION[0]="xdma"
+DEST_MODULE_LOCATION[0]="/updates/dkms"
+
+AUTOINSTALL="yes"

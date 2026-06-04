@@ -1,0 +1,8 @@
+XDMA/linux-kernel/include/*.h usr/src/xdma-2025.2.0/include
+XDMA/linux-kernel/xdma/Makefile usr/src/xdma-2025.2.0/xdma
+XDMA/linux-kernel/xdma/cdev_*.c usr/src/xdma-2025.2.0/xdma
+XDMA/linux-kernel/xdma/libxdma.c usr/src/xdma-2025.2.0/xdma
+XDMA/linux-kernel/xdma/xdma_*.c usr/src/xdma-2025.2.0/xdma
+XDMA/linux-kernel/xdma/*.h usr/src/xdma-2025.2.0/xdma
+packaging/xdma-dkms/99-xdma.rules usr/lib/udev/rules.d
+packaging/xdma-dkms/xdma.conf usr/lib/modules-load.d

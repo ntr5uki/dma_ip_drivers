@@ -1,0 +1,27 @@
+Source: xdma-dkms
+Section: kernel
+Priority: optional
+Maintainer: ntr5kui <tom3036@163.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-sequence-dkms,
+Standards-Version: 4.7.2
+Homepage: https://github.com/Xilinx/dma_ip_drivers
+Rules-Requires-Root: no
+Testsuite: autopkgtest-pkg-dkms
+
+Package: xdma-dkms
+Architecture: all
+Depends:
+ adduser,
+ dkms (>= 3.0),
+ ${misc:Depends},
+Recommends:
+ linux-headers-amd64 | linux-headers-generic,
+Description: AMD/Xilinx XDMA PCIe reference driver source for DKMS
+ This package provides the AMD/Xilinx XDMA PCIe reference driver source
+ for use with DKMS. DKMS rebuilds the xdma kernel module when supported
+ kernels are installed or upgraded.
+ .
+ The package also installs a restricted udev rule for /dev/xdma* devices
+ and configures the module to load at the next system boot.

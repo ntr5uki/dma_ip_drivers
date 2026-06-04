@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+if ! getent group xdma >/dev/null 2>&1; then
+	addgroup --system xdma >/dev/null
+fi
+
+if command -v udevadm >/dev/null 2>&1; then
+	udevadm control --reload-rules || true
+fi
+
+#DEBHELPER#
+
+exit 0

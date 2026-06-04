@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with dkms
+
+override_dh_auto_build:
+	:
+
+override_dh_auto_install:
+	:
+
+override_dh_fixperms:
+	dh_fixperms
+	find debian/xdma-dkms/usr/src/xdma-2025.2.0 -type f -exec chmod 0644 {} +
