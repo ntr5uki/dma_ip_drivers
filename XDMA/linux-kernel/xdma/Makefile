@@ -16,43 +16,41 @@ endif
 
 $(warning XVC_FLAGS: $(XVC_FLAGS).)
 
-topdir := $(shell cd $(src)/.. && pwd)
-
 TARGET_MODULE:=xdma
 
-EXTRA_CFLAGS := -I$(topdir)/include $(XVC_FLAGS)
+ccflags-y := -I$(src)/../include $(XVC_FLAGS)
 ifeq ($(DEBUG),1)
-	EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
+	ccflags-y += -D__LIBXDMA_DEBUG__
 endif
 ifneq ($(config_bar_num),)
-	EXTRA_CFLAGS += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)
+	ccflags-y += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)
 endif
-#EXTRA_CFLAGS += -DINTERNAL_TESTING
+#ccflags-y += -DINTERNAL_TESTING
 
 ifneq ($(KERNELRELEASE),)
 	$(TARGET_MODULE)-objs := libxdma.o xdma_cdev.o cdev_ctrl.o cdev_events.o cdev_sgdma.o cdev_xvc.o cdev_bypass.o xdma_mod.o xdma_thread.o
 	obj-m := $(TARGET_MODULE).o
 else
-	BUILDSYSTEM_DIR:=/lib/modules/$(shell uname -r)/build
+	KERNEL_VERSION ?= $(shell uname -r)
+	KERNEL_BUILD ?= /lib/modules/$(KERNEL_VERSION)/build
 	PWD:=$(shell pwd)
 all :
-	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules
+	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) modules
 
 clean:
-	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) clean
+	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) clean
 	@/bin/rm -f *.ko modules.order *.mod.c *.o *.o.ur-safe .*.o.cmd
 
 install: all
-	@rm -f /lib/modules/5.15.0-67-generic/extra/xdma.ko
-	@echo "installing kernel modules to /lib/modules/$(shell uname -r)/xdma ..."
-	@mkdir -p -m 755 /lib/modules/$(shell uname -r)/xdma
-	@install -v -m 644 *.ko /lib/modules/$(shell uname -r)/xdma
-	@depmod -a || true
+	@echo "installing kernel modules to /lib/modules/$(KERNEL_VERSION)/xdma ..."
+	@mkdir -p -m 755 /lib/modules/$(KERNEL_VERSION)/xdma
+	@install -v -m 644 *.ko /lib/modules/$(KERNEL_VERSION)/xdma
+	@depmod -a $(KERNEL_VERSION) || true
 
 uninstall:
-	@echo "Un-installing /lib/modules/$(shell uname -r)/xdma ..."
-	@/bin/rm -rf /lib/modules/$(shell uname -r)/xdma
-	@depmod -a
+	@echo "Un-installing /lib/modules/$(KERNEL_VERSION)/xdma ..."
+	@/bin/rm -rf /lib/modules/$(KERNEL_VERSION)/xdma
+	@depmod -a $(KERNEL_VERSION)
 
 
 
