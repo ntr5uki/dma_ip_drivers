@@ -1,0 +1,40 @@
+name: Build XDMA DKMS Deb
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build xdma-dkms package
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            debhelper \
+            devscripts \
+            dh-dkms \
+            dpkg-dev \
+            fakeroot \
+            lintian
+
+      - name: Build Debian package
+        run: ./packaging/xdma-dkms/build-deb.sh
+
+      - name: List build outputs
+        run: ls -lh ..
+
+      - name: Upload Debian package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xdma-dkms-deb
+          path: |
+            ../xdma-dkms_*.deb
+            ../xdma-dkms_*.buildinfo
+            ../xdma-dkms_*.changes
+          if-no-files-found: error
