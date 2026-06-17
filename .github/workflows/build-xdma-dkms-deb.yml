@@ -30,12 +30,19 @@ jobs:
       - name: List build outputs
         run: ls -lh ..
 
+      - name: Collect package artifacts
+        run: |
+          mkdir -p artifacts
+          cp -v ../xdma-dkms_*.deb artifacts/
+          cp -v ../xdma-dkms_*.buildinfo artifacts/
+          cp -v ../xdma-dkms_*.changes artifacts/
+
       - name: Upload Debian package artifact
         uses: actions/upload-artifact@v4
         with:
           name: xdma-dkms-deb
           path: |
-            ../xdma-dkms_*.deb
-            ../xdma-dkms_*.buildinfo
-            ../xdma-dkms_*.changes
+            artifacts/xdma-dkms_*.deb
+            artifacts/xdma-dkms_*.buildinfo
+            artifacts/xdma-dkms_*.changes
           if-no-files-found: error
