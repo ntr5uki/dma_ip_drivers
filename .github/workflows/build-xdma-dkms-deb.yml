@@ -1,6 +1,6 @@
 name: Build XDMA DKMS Deb
 
-on:
+"on":
   workflow_dispatch:
 
 jobs:
