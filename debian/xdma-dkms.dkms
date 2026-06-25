@@ -1,5 +1,5 @@
 PACKAGE_NAME="xdma"
-PACKAGE_VERSION="#MODULE_VERSION#"
+PACKAGE_VERSION="2025.2.0"
 
 MAKE[0]="env -u KERNELRELEASE make -C xdma KERNEL_VERSION=${kernelver} KERNEL_BUILD=/lib/modules/${kernelver}/build"
 CLEAN="env -u KERNELRELEASE make -C xdma KERNEL_VERSION=${kernelver} KERNEL_BUILD=/lib/modules/${kernelver}/build clean"
