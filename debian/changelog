@@ -1,3 +1,9 @@
+xdma-dkms (2025.2.0-2) unstable; urgency=medium
+
+  * Register the XDMA DKMS module with the concrete upstream version.
+
+ -- ntr5kui <tom3036@163.com>  Thu, 25 Jun 2026 18:00:00 +0800
+
 xdma-dkms (2025.2.0-1) unstable; urgency=medium
 
   * Package the AMD/Xilinx XDMA reference driver with DKMS.
